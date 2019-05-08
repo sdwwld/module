@@ -1,0 +1,121 @@
+def supportVersion = "28.+"
+def glideVersion = "4.8.0"
+def leakcanaryVersion = "1.6.1"
+//def butterknifeVersion = "8.8.1"
+
+ext {
+    android = [
+            compileSdkVersion        : 28,
+            buildToolsVersion        : "28.0.3",
+            minSdkVersion            : 17,
+            targetSdkVersion         : 28,
+            versionCode              : 1,
+            versionName              : "1.0.0",
+            applicationId            : "com.sdw.module",
+            debugConfuse             : false,
+            releaseConfuse           : true,
+            releaseDebuggable        : false,
+            debugDebuggable          : true,
+            testInstrumentationRunner: "android.support.test.runner.AndroidJUnitRunner"
+    ]
+
+    java = [
+            "sourceCompatibility": JavaVersion.VERSION_1_8,
+            "targetCompatibility": JavaVersion.VERSION_1_8
+    ]
+
+    sign = [
+            RELEASE_KEY_PASSWORD = "123456",
+            RELEASE_KEY_ALIAS = "sdw",
+            RELEASE_STORE_PASSWORD = "123456",
+            RELEASE_STORE_FILE = "../module.jks"]
+
+    dependencies = [
+            //android-support
+            "appcompat-v7"               : "com.android.support:appcompat-v7:${supportVersion}",
+            "constraint-layout"          : 'com.android.support.constraint:constraint-layout:1.0.2',
+            "runner"                     : "com.android.support.test:runner:1.0.1",
+            "espresso-core"              : "com.android.support.test.espresso:espresso-core:3.0.1",
+
+            //glide
+            "glide"                      : "com.github.bumptech.glide:glide:${glideVersion}",
+            "glide_compiler"             : "com.github.bumptech.glide:compiler:${glideVersion}",
+
+            //picasso
+            "picasso"                    : "com.squareup.picasso:picasso:2.71828",
+
+            //logger
+            "logger"                     : "com.orhanobut:logger:2.2.0",
+
+            //eventbus
+            "eventbus"                   : "org.greenrobot:eventbus:3.1.1",
+
+            //okhttp
+            "okhttp"                     : "com.squareup.okhttp3:okhttp:3.11.0",
+            "okhttp-urlconnection"       : "com.squareup.okhttp3:okhttp-urlconnection:3.2.0",
+
+            //retrofit
+            "retrofit"                   : "com.squareup.retrofit2:retrofit:2.4.0",
+            "converter-gson"             : "com.squareup.retrofit2:converter-gson:2.0.0",
+            "adapter-rxjava"             : "com.squareup.retrofit2:adapter-rxjava:2.0.0",
+            "logging-interceptor"        : "com.squareup.okhttp3:logging-interceptor:3.9.1",
+
+            //rxjava2
+//            "rxjava"                     : "io.reactivex.rxjava2:rxjava:2.2.2",
+            "rxjava"                     : "io.reactivex:rxjava:1.1.2",
+
+            //rxandroid
+//            "rxandroid"                  : "io.reactivex.rxjava2:rxandroid:2.1.0",
+            "rxandroid"                  : "io.reactivex:rxandroid:1.1.0",
+
+            //leakcanary
+            "leakcanary"                 : "com.squareup.leakcanary:leakcanary-android:${leakcanaryVersion}",
+            "leakcanary-android-no-op"   : "com.squareup.leakcanary:leakcanary-android-no-op:${leakcanaryVersion}",
+            // Optional, if you use support library fragments:
+            "leakcanary-support-fragment": "com.squareup.leakcanary:leakcanary-support-fragment:${leakcanaryVersion}",
+
+            //gson
+            "gson"                       : "com.google.code.gson:gson:2.8.5",
+
+            //butterknife
+//            "butterknife"                : "com.jakewharton:butterknife:${butterknifeVersion}",
+//            "butterknife-compiler"       : "com.jakewharton:butterknife-compiler:${butterknifeVersion}",
+
+            //stetho
+            "stetho"                     : "com.facebook.stetho:stetho:1.5.0",
+            "stetho-okhttp3"             : "com.facebook.stetho:stetho-okhttp3:1.5.0",
+
+            //arouter
+            "arouter-api"                : "com.alibaba:arouter-api:1.4.1",
+            "arouter-compiler"           : "com.alibaba:arouter-compiler:1.2.2",
+
+            //multidex
+            "multidex"                   : "com.android.support:multidex:1.0.1",
+
+            //test
+            "junit"                      : "junit:junit:4.12"
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

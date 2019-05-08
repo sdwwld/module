@@ -1,0 +1,94 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    signingConfigs {
+        release {
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+        }
+        debug {
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+        }
+    }
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        testInstrumentationRunner rootProject.ext.android.testInstrumentationRunner
+        multiDexEnabled true
+        flavorDimensions "versionCode"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled rootProject.ext.android.releaseConfuse
+            zipAlignEnabled true
+            consumerProguardFiles 'proguard-rules.pro'
+            debuggable rootProject.ext.android.releaseDebuggable
+            jniDebuggable rootProject.ext.android.releaseDebuggable
+            signingConfig signingConfigs.release
+            renderscriptDebuggable rootProject.ext.android.releaseDebuggable
+        }
+        debug {
+            minifyEnabled rootProject.ext.android.debugConfuse
+            shrinkResources rootProject.ext.android.debugConfuse
+            zipAlignEnabled false
+            debuggable rootProject.ext.android.debugDebuggable
+            jniDebuggable rootProject.ext.android.debugDebuggable
+            signingConfig signingConfigs.debug
+            renderscriptDebuggable rootProject.ext.android.debugDebuggable
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility rootProject.ext.java.sourceCompatibility
+        targetCompatibility rootProject.ext.java.targetCompatibility
+    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["junit"]
+    api rootProject.ext.dependencies["runner"]
+    api rootProject.ext.dependencies["espresso-core"]
+
+    api rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
+    api rootProject.ext.dependencies["picasso"]
+    api rootProject.ext.dependencies["logger"]
+    api rootProject.ext.dependencies["eventbus"]
+    api rootProject.ext.dependencies["okhttp"]
+    api rootProject.ext.dependencies["okhttp-urlconnection"]
+    api rootProject.ext.dependencies["retrofit"]
+    debugImplementation rootProject.ext.dependencies["leakcanary"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-android-no-op"]
+    debugImplementation rootProject.ext.dependencies["leakcanary-support-fragment"]
+    api rootProject.ext.dependencies["gson"]
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["adapter-rxjava"]
+    api rootProject.ext.dependencies["logging-interceptor"]
+    api rootProject.ext.dependencies["rxjava"]
+    api rootProject.ext.dependencies["rxandroid"]
+//    api rootProject.ext.dependencies["butterknife"]
+//    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    api rootProject.ext.dependencies["stetho"]
+    api rootProject.ext.dependencies["stetho-okhttp3"]
+    api rootProject.ext.dependencies["arouter-api"]
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    api rootProject.ext.dependencies["constraint-layout"]
+    api rootProject.ext.dependencies["multidex"]
+}
