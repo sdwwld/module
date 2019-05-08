@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
+//    resourcePrefix "common_"
     signingConfigs {
         release {
             keyAlias RELEASE_KEY_ALIAS
