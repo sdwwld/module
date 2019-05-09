@@ -1,5 +1,4 @@
 # module
-随着Android项目功能的不断增加，组件化开发已经逐渐被重视起来，组件化开发的好处是可以把各个模块拆开来单独开发，并且每个模块都可以拿来单独运行，这样极大的降低了开发的耦合度，有利于团队开发。废话不多说，下面直接介绍组件化开发的使用。
 一般创建几个组件是根据项目的需求定的，我们假设把一个项目分为3个模块，分别为main页，个人中心Mine页和登录Login页。这里我们需要创建5个module，除了上面的3个以外，还应该有一个公共的，它只是一个library，不能单独运行，所有的公共资源都可以放到这里，除此之外还应该有一个单独打包的app module，这个module不写任何java代码，只是集成上面的3个module。我们看下结构
 
 ![](/img/微信截图_20190509102525.png)
@@ -129,10 +128,5 @@ public class MineActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), getIntent().getExtras().getString("param"), Toast.LENGTH_LONG).show();
     }
 ```
-这两种方式都可以获取到参数，至于arouter的原理不再本章讨论的范围内，以后有时间在单独分析，这个主要是在_ARouter类中，我们可以先看下
-
-![](/img/微信截图_20190509114050.png)
-
-这里只截取了activity跳转的部分。
-组件化也就这些东西，项目已经放到github上了，如果想了解组件化开发的可以看下。
+这两种方式都可以获取到参数，如果想了解组件化开发的可以看下。
 如果觉得有用就给个star吧
