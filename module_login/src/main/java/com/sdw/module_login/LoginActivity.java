@@ -15,7 +15,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_login);
         findViewById(R.id.tv_login).setOnClickListener(view -> {
-            ARouter.getInstance().build(ARouterPath.MODULEHOME_HOMEACTIVITY).navigation();
+            ARouter.getInstance().build(ARouterPath.MODULEMINE_MINEACTIVITY)
+                    .withString("param", "我要到个人中心页面").navigation();
         });
     }
 }

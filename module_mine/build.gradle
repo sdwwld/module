@@ -1,13 +1,13 @@
-apply plugin: 'com.android.application'
-
-def static releaseTime() {
-    return new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone(TimeZone.getDefault().getID()))
+if (isModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
 }
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
-
+    resourcePrefix "mine_"
     signingConfigs {
         release {
             keyAlias RELEASE_KEY_ALIAS
@@ -23,7 +23,6 @@ android {
         }
     }
     defaultConfig {
-        applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
@@ -37,12 +36,30 @@ android {
             }
         }
     }
+
+    sourceSets {
+        main {
+            if (isModule.toBoolean()) {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下排除debug文件夹中的所有Java文件
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled rootProject.ext.android.releaseConfuse
-            shrinkResources rootProject.ext.android.releaseConfuse
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (isModule.toBoolean()) {
+                shrinkResources rootProject.ext.android.releaseConfuse
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            } else {
+                consumerProguardFiles 'proguard-rules.pro'
+            }
             debuggable rootProject.ext.android.releaseDebuggable
             jniDebuggable rootProject.ext.android.releaseDebuggable
             signingConfig signingConfigs.release
@@ -58,25 +75,6 @@ android {
             renderscriptDebuggable rootProject.ext.android.debugDebuggable
         }
     }
-
-    android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "module-v${defaultConfig.versionCode}-${defaultConfig.versionName}-${releaseTime()}.apk"
-        }
-    }
-
-    productFlavors {
-        guanwang {
-            minSdkVersion rootProject.ext.android.minSdkVersion
-            applicationId rootProject.ext.android.applicationId
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-            targetSdkVersion rootProject.ext.android.targetSdkVersion
-            versionCode rootProject.ext.android.versionCode
-            versionName rootProject.ext.android.versionName
-            versionNameSuffix '.apk'
-        }
-    }
     compileOptions {
         sourceCompatibility rootProject.ext.java.sourceCompatibility
         targetCompatibility rootProject.ext.java.targetCompatibility
@@ -84,10 +82,7 @@ android {
 }
 
 dependencies {
-    if (!isModule.toBoolean()) {
-        //如果资源文件有相同的名字，前面module的资源文件将替换后面的，Manifest会合并
-        implementation project(':module_main')
-        implementation project(':module_login')
-        implementation project(':module_mine')
-    }
+    implementation project(':module_common')
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    annotationProcessor rootProject.ext.dependencies["glide_compiler"]
 }
