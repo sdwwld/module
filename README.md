@@ -2,8 +2,6 @@
 一般创建几个组件是根据项目的需求定的，我们假设把一个项目分为3个模块，分别为main页，个人中心Mine页和登录Login页。这里我们需要创建5个module，除了上面的3个以外，还应该有一个公共的，它只是一个library，不能单独运行，所有的公共资源都可以放到这里，除此之外还应该有一个单独打包的app module，这个module不写任何java代码，只是集成上面的3个module。我们看下结构
 
 ![](/img/微信截图_20190509102525.png)
-![](https://github.com/sdwwld/module/blob/master/img/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20190509102525.png)
-
 
 我们在项目根目录下的gradle.properties文件中设置module是否可以单独运行，
 
